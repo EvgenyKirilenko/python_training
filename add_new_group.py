@@ -17,6 +17,8 @@ class AddNewGroup(unittest.TestCase):
         wd.get("http://localhost/addressbook/")
         wd.find_element_by_name("user").click()
         wd.find_element_by_id("LoginForm").click()
+        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("pass").send_keys("secret")
         wd.find_element_by_xpath("//input[@value='Login']").click()
         wd.find_element_by_link_text("groups").click()
         wd.find_element_by_name("new").click()
