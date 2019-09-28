@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
 
+import group
 from group import Group
 
 
@@ -20,7 +21,7 @@ class AddNewGroup(unittest.TestCase):
         self.open_login_page(wd)
         self.login(wd, username="admin", password="secret")
         self.open_groups_page(wd)
-        self.open_group_creation_page(wd, Group(name="new group", header="asd", footer="asd")
+        self.fill_group_create_form(wd, Group(name="new group", header="asd", footer="asd"))
         self.submit_creation(wd)
         self.logout(wd)
 
@@ -29,7 +30,7 @@ class AddNewGroup(unittest.TestCase):
             self.open_login_page(wd)
             self.login(wd, username="admin", password="secret")
             self.open_groups_page(wd)
-            self.open_group_creation_page(wd, Group(name="", header="", footer="")
+            self.fill_group_create_form(wd, Group(name="", header="", footer=""))
             self.submit_creation(wd)
             self.logout(wd)
 
@@ -45,7 +46,7 @@ class AddNewGroup(unittest.TestCase):
         wd.find_element_by_name("submit").click()
         wd.find_element_by_link_text("group page").click()
 
-    def open_group_creation_page(self, wd, name, header, footer):
+    def fill_group_create_form(self, wd, group):
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
