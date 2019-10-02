@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
@@ -25,7 +22,7 @@ class AddNewGroup(unittest.TestCase):
         self.submit_creation(wd)
         self.logout(wd)
 
-        def test_add_new_empty_group(self):
+    def test_add_new_empty_group(self):
             wd = self.wd
             self.open_login_page(wd)
             self.login(wd, username="admin", password="secret")

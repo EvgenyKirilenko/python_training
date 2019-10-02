@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
+from user import User
 
 
 
@@ -19,7 +20,12 @@ class UntitledTestCase(unittest.TestCase):
         self.open_login_page(wd)
         self.login(wd, username="admin", password="secret")
         self.open_add_user_page(wd)
-        self.fill_new_user_form(wd)
+        self.fill_new_user_form(wd, User(firstname="firstname", lastname="lastname", middlename="middlename",
+                                nickname="nickname", title="title", company="company", address="address",
+                                home="home", mobile="mobile", work="work", fax="fax", email="email",
+                                email2="email2", email3="email3", homepage="homepage",
+                                bday="bday", bmonth="bmonth", byear="byear", aday="aday",
+                                amonth="amonth", ayear="ayear", address2="address2", phone2="phone2", notes="notes"))
         self.submit_new_user(wd)
         self.logout(wd)
 
@@ -36,7 +42,7 @@ class UntitledTestCase(unittest.TestCase):
     def open_login_page(self, wd):
         wd.get("http://localhost/addressbook/")
 
-    def fill_new_user_form(self, wd):
+    def fill_new_user_form(self, wd, user):
         wd.find_element_by_name("firstname").send_keys("firstname")
         wd.find_element_by_name("middlename").send_keys("middle name")
         wd.find_element_by_name("lastname").send_keys("last name")
