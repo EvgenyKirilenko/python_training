@@ -1,41 +1,24 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-import unittest
-
+import pytest
 from group import Group
 from application import Application
 
 
-class AddNewGroup(unittest.TestCase):
-    def setUp(self):
-        self.app = Application()
-    
-    def test_add_new_group(self):
-        self.login(username="admin", password="secret")
-        self.fill_group_create_form(wd, Group(name="new group", header="asd", footer="asd"))
-        self.logout()
-
-    def test_add_new_empty_group(self):
-            self.login (username="admin", password="secret")
-            self.fill_group_create_form(wd, Group(name="", header="", footer=""))
-            self.logout()
+@pytest.fixture
+def app(request):
+    fixture=Application()
+    request.addfinalizer(fixture.destroy)
+    return fixture
 
 
-    def is_element_present(self, how, what):
-        try: self.wd.find_element(by=how, value=what)
-        except NoSuchElementException as e: return False
-        return True
-    
-    def is_alert_present(self):
-        try: self.wd.switch_to_alert()
-        except NoAlertPresentException as e: return False
-        return True
-    
-    def tearDown(self):
-        self.app.destroy()
+def test_add_new_group(app):
+    app.login(username="admin", password="secret")
+    app.fill_group_create_form(wd, Group(name="new group", header="asd", footer="asd"))
+    app.logout()
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_add_new_empty_group(app):
+    app.login (username="admin", password="secret")
+    app.fill_group_create_form(wd, Group(name="", header="", footer=""))
+    app.logout()
+
