@@ -13,12 +13,12 @@ def app(request):
 
 def test_add_new_group(app):
     app.login(username="admin", password="secret")
-    app.fill_group_create_form(wd, Group(name="new group", header="asd", footer="asd"))
+    app.fill_group_create_form(Group(name="new group", header="asd", footer="asd"))
     app.logout()
 
 
 def test_add_new_empty_group(app):
     app.login (username="admin", password="secret")
-    app.fill_group_create_form(wd, Group(name="", header="", footer=""))
+    app.fill_group_create_form(Group(name="", header="", footer=""))
     app.logout()
 
