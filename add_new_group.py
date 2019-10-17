@@ -4,61 +4,24 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
 
-import group
 from group import Group
+from application import Application
 
 
 class AddNewGroup(unittest.TestCase):
     def setUp(self):
-        self.wd = webdriver.Firefox()
-        self.wd.implicitly_wait(30)
+        self.app = Application()
     
     def test_add_new_group(self):
-        wd = self.wd
-        self.login(wd, username="admin", password="secret")
+        self.login(username="admin", password="secret")
         self.fill_group_create_form(wd, Group(name="new group", header="asd", footer="asd"))
-        self.logout(wd)
+        self.logout()
 
     def test_add_new_empty_group(self):
-            wd = self.wd
-            self.login(wd, username="admin", password="secret")
+            self.login (username="admin", password="secret")
             self.fill_group_create_form(wd, Group(name="", header="", footer=""))
-            self.logout(wd)
+            self.logout()
 
-    def logout(self, wd):
-        wd.find_element_by_link_text("Logout").click()
-
-
-    def submit_creation(self, wd):
-        # submit creation
-        wd.find_element_by_name("submit").click()
-        wd.find_element_by_link_text("group page").click()
-
-    def fill_group_create_form(self, wd, group):
-        self.open_groups_page(wd)
-        wd.find_element_by_name("new").click()
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(group.name)
-        wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(group.header)
-        wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(group.footer)
-        self.submit_creation(wd)
-
-    def open_groups_page(self, wd):
-        wd.find_element_by_link_text("groups").click()
-
-    def login(self, wd, username, password):
-        self.open_login_page(wd)
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_id("LoginForm").click()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
-
-    def open_login_page(self, wd):
-        wd.get("http://localhost/addressbook/")
 
     def is_element_present(self, how, what):
         try: self.wd.find_element(by=how, value=what)
@@ -71,7 +34,7 @@ class AddNewGroup(unittest.TestCase):
         return True
     
     def tearDown(self):
-        self.wd.quit()
+        self.app.destroy()
 
 
 if __name__ == "__main__":
