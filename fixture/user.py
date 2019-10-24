@@ -40,7 +40,28 @@ class UserHelper:
         wd.find_element_by_name("phone2").send_keys("home")
         wd.find_element_by_name("notes").send_keys("notes")
 
+    def test_delete_first_user(self):
+        wd = self.app.wd
+        self.open_login_page()
+        # select first user
+        wd.find_element_by_name("selected[]").click()
+        #submit deletion
+        wd.find_element_by_name("delete").click()
+        self.open_login_page()
+
+    def test_edit_first_group(self):
+        wd = self.app.wd
+        self.open_login_page()
+        # select first group
+        wd.find_element_by_name("selected[]").click()
+        #submit deletion
+        wd.find_element_by_name("delete").click()
+        self.open_login_page()
 
     def open_add_new_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
+
+    def open_login_page(self):
+        wd = self.app.wd
+        self.open_login_page()
