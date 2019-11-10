@@ -7,35 +7,34 @@ class UserHelper:
     def __init__(self, app):
         self.app = app
 
-    def submit(self):
+    def click_submit(self):
         wd = self.app.wd
         wd.find_element_by_name("submit").click()
 
     def create(self, user):
         wd = self.app.wd
         self.fill_form()
-        self.submit()
 
     def test_delete_first_user(self):
         wd = self.app.wd
-        self.open_login_page()
+        self.return_to_home_page()
         # select first user
         wd.find_element_by_name("selected[]").click()
         #submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
-        self.open_login_page()
+        self.return_to_home_page()
 
     def test_edit_first_user(self):
         wd = self.app.wd
-        self.open_login_page()
+        self.return_to_home_page()
         # select first user
         wd.find_element_by_name("selected[]").click()
         #submit editing
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         self.fill_form()
         wd.find_element_by_name("update").click()
-        self.open_login_page()
+        self.return_to_home_page()
 
     def fill_form(self):
         wd = self.app.wd
@@ -68,6 +67,6 @@ class UserHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def open_login_page(self):
+    def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()

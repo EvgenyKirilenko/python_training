@@ -7,5 +7,4 @@ def test_add_new_empty_group(app):
     app.group.create(Group(name="", header="", footer=""))
     app.group.click_submit()
     app.group.return_to_group_page()
-    app.group.open_groups_page()
     app.session.logout()
