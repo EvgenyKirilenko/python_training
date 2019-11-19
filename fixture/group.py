@@ -51,6 +51,7 @@ class GroupHelper:
         self.change_field_value("group_name", group.name)
         self.change_field_value("group_header", group.header)
         self.change_field_value("group_footer", group.footer)
+        wd.find_element_by_name("update").click()
 
     def fill_form(self, group):
         wd = self.app.wd

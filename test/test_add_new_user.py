@@ -3,7 +3,6 @@ from model.user import User
 
 
 def test_add_new_user(app):
-    app.session.login(username="admin", password="secret")
     app.user.open_add_new_page()
     app.user.create(User(firstname="firstnameq", lastname="lastname", middlename="middlename",
                          nickname="nickname", title="title", company="company", address="address",
@@ -13,4 +12,3 @@ def test_add_new_user(app):
                          amonth="amonth", ayear="ayear", address2="address2", phone2="phone2", notes="notes"))
     app.user.click_submit()
     app.user.return_to_home_page()
-    app.session.logout()
