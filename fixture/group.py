@@ -36,7 +36,7 @@ class GroupHelper:
         self.select_first_group()
         self.click_edit()
         self.fill_group_form(new_group_data)
-        wd.find_element_by_name("update").click()
+        self.return_to_group_page()
 
     def click_edit(self):
         wd = self.app.wd
